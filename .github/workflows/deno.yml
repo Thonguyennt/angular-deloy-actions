@@ -1,23 +1,31 @@
-name: Github Actions Example
+name: Build and Deploy
 
 on:
-  pull_request:
   push:
-    branches: 
+    branches:
       - master
-      - develop
-
-jobs:      
-  test_action_and_deploy_demo: # make sure the action works on a clean machine without building
+jobs:
+  build-and-deploy:
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v1
-    - name: 'Deploy demo app using action'
-      uses: AhsanAyaz/angular-deploy-gh-pages-actions@[version]
+    - name: Checkout
+      uses: actions/checkout@v1
+    - uses: actions/setup-node@v1 #this installs node and npm for us
       with:
-        github_access_token: ${{ secrets.ACCESS_TOKEN }}
-        base_href: /angular-deloy-actions/
-        deploy_branch: gh-pages # The branch the action should deploy to.
-        angular_dist_build_folder: ./dist/angular-deploy-gh-actions # The folder the action should deploy.
-        angular_project_dir: angular-deploy-gh-actions
-   
+        node-version: '10.x'
+    - uses: actions/cache@v1 # this allows for re-using node_modules caching, making builds a bit faster.
+      with:
+        path: ~/.npm
+        key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+        restore-keys: |
+          ${{ runner.os }}-node-    
+    - name: Build
+      run: |
+        npm install
+        npm run-script deploy
+    - name: Deploy
+      uses: JamesIves/github-pages-deploy-action@releases/v3
+      with:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        BRANCH: gh-pages
+        FOLDER: dist/angular-ci-cd
