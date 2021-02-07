@@ -24,7 +24,7 @@ jobs:
         npm install
         
     - name: Deploy
-      uses: Thonguyennt/angular-deloy-actions@releases/v3
+       uses: ./
       with:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         BRANCH: gh-pages
