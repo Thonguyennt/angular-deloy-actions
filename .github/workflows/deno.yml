@@ -17,11 +17,11 @@ jobs:
         rm -rf dist
         npm run build
         
-    - name: Deploy
-      uses: JamesIves/github-pages-deploy-action@3.7.1
+    - name: Angular Deploy gh-pages Actions
+      uses: AhsanAyaz/angular-deploy-gh-pages-actions@v1.3.1
       with:
-        ACCESS_TOKEN: ${{ secrets.ACCESS_TOKEN }}  
+        github_access_token: ${{ secrets.ACCESS_TOKEN }}
         base_href: /angular-deloy-actions/
-        BRANCH: gh-pages # The branch the action should deploy to.
-        FOLDER: ./dist # The folder the action should deploy.
-        DIR: angular-deloy-actions
+        deploy_branch: gh-pages # The branch the action should deploy to.
+        angular_dist_build_folder: ./dist/angular-deploy-gh-actions # The folder the action should deploy.
+        angular_project_dir: angular-deploy-gh-actions
