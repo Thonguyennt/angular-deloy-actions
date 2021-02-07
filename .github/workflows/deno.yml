@@ -21,5 +21,7 @@ jobs:
       uses: JamesIves/github-pages-deploy-action@3.7.1
       with:
         ACCESS_TOKEN: ${{ secrets.ACCESS_TOKEN }}  
-        BRANCH: gh-pages
-        angular_dist_build_folder: ./dist/angular-deploy-gh-actions # The folder the action should deploy.
+        base_href: /angular-deloy-actions/
+        deploy_branch: gh-pages # The branch the action should deploy to.
+        angular_dist_build_folder: ./dist/angular-deloy-actions # The folder the action should deploy.
+        angular_project_dir: angular-deloy-actions
