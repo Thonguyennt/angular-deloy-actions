@@ -20,5 +20,18 @@ jobs:
         node-version: ${{ matrix.node-version }}
     - name: Install
       run: npm install
-    - name: Test
-      run: npm test
+      
+  test_action_and_deploy_demo: # make sure the action works on a clean machine without building
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v1
+    - name: 'Deploy demo app using action'
+      uses: ./
+      with:
+        run_lint: true
+        github_access_token: ${{ secrets.ACCESS_TOKEN }}
+        base_href: /angular-deloy-actions/
+        deploy_branch: gh-pages # The branch the action should deploy to.
+        angular_dist_build_folder: ./dist/angular-deploy-gh-actions # The folder the action should deploy.
+        angular_project_dir: angular-deploy-gh-actions
+   
