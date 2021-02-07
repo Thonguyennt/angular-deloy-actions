@@ -18,7 +18,7 @@ jobs:
         npm run build
         
     - name: Deploy
-      uses: Thonguyennt/angular-deloy-actions@3.7.1
+      uses: JamesIves/github-pages-deploy-action@3.7.1
       with:
         ACCESS_TOKEN: ${{ secrets.ACCESS_TOKEN }}  
         BRANCH: gh-pages
